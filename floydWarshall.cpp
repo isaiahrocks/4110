@@ -6,49 +6,47 @@
 #define V 1000
 #define INF 99999
 
-int floydWarshall(int adjMat[][V], int numVert);
+int getTimeSpentFW(int adjMat[][V], int numVert);
 void printSol(int dist[][V], int numVert);
 
 int main(int argc, char *argv[])
 {
   int adjMat[V][V];
   int numVert, a, b, w;
-  double total = 0;
+  double totalTimeSpent = 0;
   
   std::ifstream infile;
 	infile.open(argv[1]);
 	infile >> numVert;
 	//std::cout << numVert << std::endl;
   	for(int i = 0; i < numVert; i++) //initializing graph
-	{
-		for (int j = 0; j < numVert; j++)
 		{
-			if(i != j)
-			{				
-				adjMat[i][j] = INF;
-			}
-			else
+			for (int j = 0; j < numVert; j++)
 			{
-				adjMat[i][j] = 0;
+				if(i != j)
+				{				
+					adjMat[i][j] = INF;
+				}
+				else
+				{
+					adjMat[i][j] = 0;
+				}
 			}
 		}
-	}
  
 	//std::cout << "after first for" << std::endl;
-  	while (true) //reading in from input file
-	{
-		infile >> a >> b >> w;
-		
-		adjMat[a][b] = w;
+  	while (!infile.eof()) //reading in from input file
+		{
+			infile >> a >> b >> w;
+			
+			adjMat[a][b] = w;
     		//adjMat[b][a] = w;
-	
-		if (infile.eof()){ break; }
-	}
+		}
  
 	//std::cout << "after while" << std::endl;
   /*std::cout << "\n\n\n";
   for(int i = 0; i < numVert ; i++)
-  {
+	{
     for(int j = 0; j < numVert; j++)
     {
       std::cout << adjMat[i][j] << "\t";
@@ -59,14 +57,13 @@ int main(int argc, char *argv[])
   
 
   	std::cout << "Vertex\tDistance\n";
-	total = floydWarshall(adjMat, numVert);
-	std::cout << "Total Processor Time: " << total << std::endl;
-  return 0;
-
+		totalTimeSpent = getTimeSpentFW(adjMat, numVert);
+		std::cout << "Total Processor Time: " << totalTimeSpent << std::endl;
+  	return 0;
 }
 
 
-int floydWarshall(int adjMat[][V], int numVert)
+int getTimeSpentFW(int adjMat[][V], int numVert)
 {
 	int start_t = clock();
 	int dist[V][V]; //holds output

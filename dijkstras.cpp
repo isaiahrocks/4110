@@ -40,14 +40,13 @@ int main(int argc, char *argv[])
 		}
 	}
  
-	while (true) //reading in from input file
+	while (!infile.eof()) //reading in from input file
 	{
 		infile >> a >> b >> w;
     //std::cout << "a: " << a << " b: " << b << " w: " << w << std::endl;
 		adjMat[a][b] = w;
     		//adjMat[b][a] = w;
     //std::cout << "graph[a][b] = " << graph[a][b] << "***graph[b][a] = " << graph[b][a] << std::endl;
-		if (infile.eof()){ break; }
 	}
 
  /* std::cout << "\n\n\n";
